@@ -1,7 +1,7 @@
 {
 	"name": "@default-js/defaultjs-html-renderer",
 	"buildname": "defaultjs-html-renderer",
-	"version": "1.0.0",
+	"version": "1.2.0",
 	"description": "This is a html web component to render html by using defaultjs-template-language.",
 	"main": "./index.js",
 	"scripts": {

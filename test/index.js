@@ -191,4 +191,17 @@ describe("Renderer test", () => {
 
 		return result;
 	});
+
+	it("include-only ", async () => {
+		const element = create(`<d-renderer template="/templates/components/Renderer/case-1.tpl.html"></d-renderer>`).first();
+		document.body.append(element);
+		await element.ready;
+
+		expect(element.children.length).toBe(1);
+		expect(element.children[0].nodeName).toBe("DIV");
+		expect(element.children[0].children.length).toBe(0);
+		expect(element.children[0].childNodes.length).toBe(1);
+
+		element.remove();
+	});
 });

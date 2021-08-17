@@ -23,8 +23,9 @@ const ATTRIBUTE_INITRUN = "initial-run"; // default: true
 const ATTRIBUTE_LISTEN_EVENT = "listen-event";
 const ATTRIBUTE_LISTEN_ELEMENT = "listen-element"; //default body
 const ATTRIBUTE_TRIGGER_EVENT = "trigger-event"; // trigger event on render finished
+const ATTRIBUTE_INCLUDE_ONLY = "include-only";
 
-const ATTRIBUTES = [ATTRIBUTE_TEMPLATE, ATTRIBUTE_DATA, ATTRIBUTE_RENDER_MODE];
+const ATTRIBUTES = [ATTRIBUTE_TEMPLATE, ATTRIBUTE_DATA, ATTRIBUTE_RENDER_MODE, ATTRIBUTE_INCLUDE_ONLY];
 
 const PRIVATE_TEMPLATE = "template";
 const PRIVATE_LISTENER = "listener";
@@ -177,6 +178,7 @@ class JSTLRendererElement extends Component {
 
 		let context = mergeData(data, event);
 
+		const includeOnly = this.hasAttribute(ATTRIBUTE_INCLUDE_ONLY);
 		const condition = await ExpressionResolver.resolve(this.attr(ATTRIBUTE_CONDITION) || "true", context, false);
 		if (!condition) return;
 
@@ -196,7 +198,15 @@ class JSTLRendererElement extends Component {
 			mode = "replace";
 		}
 
-		await Renderer.render({ template, data: context, container, mode });
+		if (includeOnly) {
+			const content = template.importContent();
+			if (mode == "prepend") container.prepend(content);
+			else if (mode == "append") container.append(content);
+			else {
+				container.empty();
+				container.append(content);
+			}
+		} else await Renderer.render({ template, data: context, container, mode });
 
 		if (replace) {
 			removeEventObserving(this);
