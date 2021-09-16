@@ -1,3 +1,4 @@
+
 import HTMLRendererElement from "../src/HTMLRendererElement";
 import { createUID } from "@default-js/defaultjs-html-components/src/Component";
 
@@ -157,7 +158,7 @@ describe("Renderer test", () => {
 
 	it("render on listen-element", async () => {        
 		let wrong = true;
-        const trigger = create(`<div id="${createUID()}"></div>`).first();
+        const trigger = create(`<div id="${createUID("id-")}"></div>`).first();
 		document.body.append(trigger);
 
         trigger.on("test:render", () => {

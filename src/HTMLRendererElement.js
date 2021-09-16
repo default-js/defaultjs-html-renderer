@@ -1,7 +1,6 @@
 import Component from "@default-js/defaultjs-html-components/src/Component";
 import { toNodeName, define } from "@default-js/defaultjs-html-components/src/utils/DefineComponentHelper";
 import { componentEventname } from "@default-js/defaultjs-html-components/src/utils/EventHelper";
-import { defValue } from "@default-js/defaultjs-common-utils/src/ObjectUtils";
 import { privateProperty } from "@default-js/defaultjs-common-utils/src/PrivateProperty";
 import Renderer from "@default-js/defaultjs-template-language/src/Renderer";
 import Template from "@default-js/defaultjs-template-language/src/Template";
