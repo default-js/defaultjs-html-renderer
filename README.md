@@ -4,10 +4,11 @@
 - [Intro](#intro)
 - [How to include](#how-to-include)
 - [How to use](#how-to-use)
+- [How do define a template](#how-do-define-a-template)
 
 # Intro
 
-This a web component, that allows you, to render a html file or a [template file](https://github.com/default-js/defaultjs-template-language#readme) into your website.
+This a web component, that allows you, to render a html file or a [template file](https://github.com/default-js/defaultjs-template-language#readme) into your website. The rendering would be executed dynamicly on client at brower. This supports a easy way of client side rendering, additial by using remote data.
 
 # How to include
 
@@ -58,3 +59,7 @@ Include the `d-renderer` tag into your html body and define the path to a templa
 <!-- fetch and render remote json data with a template file into d-renderer tag -->
 <d-renderer template="/path/to/template/file.tpl.html" data="/path/to/data/file.json"></d-renderer>
 ```
+
+# How do define a template
+
+If you want to learn, `"How to define a template?"`, read the documentation of [defaultjs-template-language](https://github.com/default-js/defaultjs-template-language#readme).
