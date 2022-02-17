@@ -35,7 +35,19 @@ import { HTMLRendererElement } from "@default-js/defaultjs-html-renderer"
 
 # How to use
 
-Include the `d-renderer` tag into your html body and define the path to a template by attribute `template`. 
+Include the `d-renderer` tag into your html body and 
+
+- define the path to a template by attribute `template`.
+- define a selector of a `HTMLTemplateElement` by attribute `template`.
+- define a template as content of `d-renderer`.
+
+```html
+<d-renderer template="/path/to/template/file.tpl.html"></d-renderer>
+<d-renderer template="#MyTemplate"></d-renderer>
+<d-renderer>
+    <!-- use content as template definition -->
+</d-renderer>
+```
 
 ***Additional configuration attributes:***
 - rendering mode by attribute `mode` and one of the possible values `append`, `prepend`, `replace`, `replace-self`.
