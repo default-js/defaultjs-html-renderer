@@ -50,26 +50,26 @@ Include the `d-renderer` tag into your html body and
 ```
 
 ***Additional configuration attributes:***
-- rendering mode by attribute `mode` and one of the possible values `append`, `prepend`, `replace`, `replace-self`.
+- rendering mode by attribute `mode` and one of the possible values `append`, `prepend`, `replace`, `self-replace`.
 - remote json data file by attribute `data`
 
 ```html
-<d-renderer template="/path/to/template/file.tpl.html" data="/path/to/data/file.json" mode="[append|prepand|replace|replace-self]"></d-renderer>
+<d-renderer template="/path/to/template/file.tpl.html" data="/path/to/data/file.json" render-mode="[append|prepand|replace|replace-self]"></d-renderer>
 
 <!-- render a template file into the d-renderer tag by replacing the content of d-renderer tag -->
 <d-renderer template="/path/to/template/file.tpl.html"></d-renderer>
-<d-renderer template="/path/to/template/file.tpl.html" mode="replace"></d-renderer>
+<d-renderer template="/path/to/template/file.tpl.html" render-mode="replace"></d-renderer>
 
 <!-- render a template file into the d-renderer tag by appending -->
-<d-renderer template="/path/to/template/file.tpl.html" mode="append"></d-renderer>
+<d-renderer template="/path/to/template/file.tpl.html" render-mode="append"></d-renderer>
 <!-- render a template file into the d-renderer tag by prepending -->
-<d-renderer template="/path/to/template/file.tpl.html" mode="prepend"></d-renderer>
+<d-renderer template="/path/to/template/file.tpl.html" render-mode="prepend"></d-renderer>
 
 <!-- render a template file and replacing the d-renderer tag with the rendered content -->
-<d-renderer template="/path/to/template/file.tpl.html" mode="replace-self"></d-renderer>
+<d-renderer template="/path/to/template/file.tpl.html" render-mode="self-replace"></d-renderer>
 
 <!-- fetch and render remote json data with a template file into d-renderer tag -->
-<d-renderer template="/path/to/template/file.tpl.html" data="/path/to/data/file.json"></d-renderer>
+<d-renderer template="/path/to/template/file.tpl.html" render-mode="/path/to/data/file.json"></d-renderer>
 ```
 
 # How do define a template

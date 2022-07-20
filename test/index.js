@@ -54,6 +54,23 @@ describe("Renderer test", () => {
 		element.remove();
 	});
 
+	it("render-mode - self-replace - no template", async () => {
+		const element = create(`<div></div>`).first();
+		document.body.append(element);
+		const renderer = create(`<d-renderer render-mode="self-replace">
+			<jstl jstl-include="/templates/components/Renderer/case-1.tpl.html"></jstl>
+		</d-renderer>`).first();
+		element.append(renderer);
+		await renderer.ready;
+
+		expect(element.children.length).toBe(1);
+		expect(element.children[0].nodeName).toBe("DIV");
+		expect(element.children[0].children.length).toBe(0);
+		expect(element.children[0].childNodes.length).toBe(1);
+
+		element.remove();
+	});
+
 	it("condition = true", async () => {
 		window.test1 = true;
 		const element = create(
