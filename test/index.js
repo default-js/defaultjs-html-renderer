@@ -1,5 +1,5 @@
 
-import HTMLRendererElement from "../src/HTMLRendererElement";
+import {HTMLRendererElement} from "../";
 import { createUID } from "@default-js/defaultjs-html-components/src/Component";
 
 describe("Renderer test", () => {

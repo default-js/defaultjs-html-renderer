@@ -49,9 +49,19 @@ Include the `d-renderer` tag into your html body and
 </d-renderer>
 ```
 
-***Additional configuration attributes:***
-- rendering mode by attribute `mode` and one of the possible values `append`, `prepend`, `replace`, `self-replace`.
-- remote json data file by attribute `data`
+***Overview of all Attributes:***
+
+Attribute        | Default   | Description
+-----------------|-----------|---------
+`template`       |           | `URL string` or `dom selector string`
+`render-mode`    | `replace` | Defines, how the rendered content be included. Values [`append`, `prepend`, `replace`, `self-replace`]
+`data`           |           | `URL string` to load additional data
+`condition`      |           | define an `Expression`, under what condition the renderer would be executed
+`initial-run`    | `true`    | if the value `false`, you must execute the rendering by javascript or by an `Event` <- see other attributes
+`include-only`   |           | if this attribute präsent, then the renderer would include the template without processing
+`listen-event`   |           | define an `Event`, if this `Event` triggert the renderer would be executed. Combine this with `initial-run=false`
+`listen-element` |           | define a `dom selector string` on witch element an `event` be observed
+`trigger-event`  |           | define an `Event` there be triggered if the rendering process finished
 
 ```html
 <d-renderer template="/path/to/template/file.tpl.html" data="/path/to/data/file.json" render-mode="[append|prepand|replace|replace-self]"></d-renderer>

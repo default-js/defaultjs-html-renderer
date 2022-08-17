@@ -1,3 +1,3 @@
-import HTMLRendererElement from "./src/HTMLRendererElement";
+import HTMLRendererElement from "./src/js/HTMLRendererElement";
 
 export {HTMLRendererElement};
