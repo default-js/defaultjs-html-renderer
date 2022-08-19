@@ -37,13 +37,18 @@ const findElement = (element, selector) => {
 	} catch (e) {}
 };
 
+const toURL = async (value, context= {}) => {
+	value = await ExpressionResolver.resolveText(value, context);
+	return new URL(value, location);
+}
+
 const loadTemplate = async (element) => {
 	const value = element.attr(ATTRIBUTE_TEMPLATE);
 	let template = null;
 	if (value) {
 		template = findElement(element, value);
 		if (template instanceof HTMLTemplateElement) return await Template.load(template, false);
-		else template = await Template.load(new URL(value, location));
+		else template = await Template.load(await toURL(value));
 	} else if (element.childNodes && element.childNodes.length > 0) template = await Template.load(element.childNodes, false);
 
 	return template;
@@ -153,13 +158,13 @@ class JSTLRendererElement extends Component {
 				if (data.nodeName == NODENAME_JSONDATA) data = data.json;
 				else if (data.nodeName == NODENAME_REQUEST) {
 					data = await data.execute({});
-					data = data.json();
+					data = await data.json();
 				} else if (data instanceof HTMLElement) {
 					data = data.textContent;
 					if (data && data.trim().length > 0) data = JSON.parse(data);
 				}
 			} else {
-				data = await fetch(new URL(value, location).toString());
+				data = await fetch(await toURL(value));
 				data = await data.json();
 			}
 		}
