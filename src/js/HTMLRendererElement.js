@@ -109,7 +109,8 @@ const mergeData = (data1, data2) => {
 	return Object.assign({}, data1 ? data1 : null, data2 ? data2 : null);
 };
 
-class JSTLRendererElement extends Component {
+class HTMLRendererElement extends Component {
+
 	static get observedAttributes() {
 		return ATTRIBUTES;
 	}
@@ -117,6 +118,8 @@ class JSTLRendererElement extends Component {
 	static get NODENAME() {
 		return NODENAME;
 	}
+
+	#initialized = false;
 
 	constructor() {
 		super();
@@ -130,11 +133,12 @@ class JSTLRendererElement extends Component {
 	async init() {
 		await super.init();
 
-		if (!this.ready.resolved) {
+		if (!this.#initialized) {
 			privateProperty(this, PRIVATE_TEMPLATE, await loadTemplate(this));
 
 			if (this.hasAttribute(ATTRIBUTE_LISTEN_EVENT)) addEventObserving(this);
 			if (this.attr(ATTRIBUTE_INITRUN) != "false") await this.render();
+			this.#initialized = true;
 		}
 	}
 
@@ -234,5 +238,5 @@ class JSTLRendererElement extends Component {
 	}
 }
 
-define(JSTLRendererElement);
-export default JSTLRendererElement;
+define(HTMLRendererElement);
+export default HTMLRendererElement;
