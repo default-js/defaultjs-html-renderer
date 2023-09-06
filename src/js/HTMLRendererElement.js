@@ -26,7 +26,6 @@ const ATTRIBUTE_INCLUDE_ONLY = "include-only";
 
 const ATTRIBUTES = [ATTRIBUTE_TEMPLATE, ATTRIBUTE_DATA, ATTRIBUTE_RENDER_MODE, ATTRIBUTE_INCLUDE_ONLY];
 
-const PRIVATE_TEMPLATE = "template";
 const PRIVATE_LISTENER = "listener";
 const PRIVATE_DATA = "data";
 const PRIVATE_RENDER_TIMEOUT = "renderTimeout";
@@ -120,21 +119,18 @@ class HTMLRendererElement extends Component {
 	}
 
 	#initialized = false;
+	#template
 
 	constructor() {
 		super();
 		if (this.hasAttribute(ATTRIBUTE_SHADOWMODE)) this.attachShadow({ mode: open });
 	}
 
-	get root() {
-		return this.shadowRoot || this;
-	}
-
 	async init() {
 		await super.init();
 
 		if (!this.#initialized) {
-			privateProperty(this, PRIVATE_TEMPLATE, await loadTemplate(this));
+			this.#template =  await loadTemplate(this);
 
 			if (this.hasAttribute(ATTRIBUTE_LISTEN_EVENT)) addEventObserving(this);
 			if (this.attr(ATTRIBUTE_INITRUN) != "false") await this.render();
@@ -143,11 +139,7 @@ class HTMLRendererElement extends Component {
 	}
 
 	async getTemplate() {
-		return privateProperty(this, PRIVATE_TEMPLATE);
-	}
-
-	async setTemplate(template) {
-		privateProperty(this, PRIVATE_TEMPLATE, await Template.load(template));
+		return this.#template;
 	}
 
 	async getData() {
@@ -191,7 +183,7 @@ class HTMLRendererElement extends Component {
 		if (!condition) return;
 
 		if (template) template = await Template.load(template);
-		else template = await this.getTemplate(this);
+		else template = await this.#template;
 		if (!template) return;
 
 		if (!data) data = await this.getData(this);
@@ -231,7 +223,7 @@ class HTMLRendererElement extends Component {
 	}
 
 	attributeChangedCallback(name, oldValue, newValue) {
-		if (oldValue != newValue && this.isConnected) {
+		if (this.#initialized && oldValue != newValue && this.isConnected) {
 			if (name == ATTRIBUTE_TEMPLATE) loadTemplate(this);
 			callRender(this);
 		}
